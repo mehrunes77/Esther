@@ -13,5 +13,6 @@ export async function queueApiCall<T>(
   name: string = 'API Call'
 ): Promise<T> {
   console.log(`Queued: ${name}`);
-  return apiQueue.add(fn);
+  const result = await apiQueue.add(fn);
+  return result as T;
 }

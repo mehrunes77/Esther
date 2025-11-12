@@ -142,12 +142,44 @@ class AstronomyNewsService {
     return `article_${Math.abs(hash)}`;
   }
 
-  /**
-   * Update settings at runtime
-   */
-  updateSettings(newSettings: Partial<AppSettings>) {
-    this.settings = { ...this.settings, ...newSettings };
+/**
+ * Get news sources
+ */
+async getNewsSources(): Promise<NewsSource[]> {
+  return this.settings.newsFiltering.sources;
+}
+
+/**
+ * Get article by ID
+ */
+async getArticleById(id: string): Promise<NewsArticle | null> {
+  const articles = await this.fetchFilteredNews();
+  return articles.find((a) => a.id === id) || null;
+}
+
+/**
+ * Get filtered news (alias for fetchFilteredNews)
+ */
+async getFilteredNews(): Promise<NewsArticle[]> {
+  return this.fetchFilteredNews();
+}
+
+/**
+ * Update settings at runtime
+ */
+updateSettings(newSettings: Partial<AppSettings>) {
+  this.settings = { ...this.settings, ...newSettings };
+}
+}
+
+// Singleton instance
+let newsServiceInstance: AstronomyNewsService | null = null;
+
+export function getNewsService(settings: AppSettings): AstronomyNewsService {
+  if (!newsServiceInstance) {
+    newsServiceInstance = new AstronomyNewsService(settings);
   }
+  return newsServiceInstance;
 }
 
 export default AstronomyNewsService;

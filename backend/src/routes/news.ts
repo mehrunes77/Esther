@@ -2,9 +2,10 @@ import { Router, Request, Response } from 'express';
 import { validateNumberInRange } from '../utils/validation';
 import logger from '../logger';
 import AstronomyNewsService from '../services/news-filter';
+import { DEFAULT_SETTINGS } from '../config/settings';
 
 const router = Router();
-const newsService = new AstronomyNewsService();
+const newsService = new AstronomyNewsService(DEFAULT_SETTINGS);
 
 /**
  * GET /api/news
@@ -33,11 +34,11 @@ router.get('/', async (req: Request, res: Response) => {
 
     // Filter by source if specified
     const filtered = sourceFilter
-      ? articles.filter((article) => article.sourceId === sourceFilter)
+      ? articles.filter((article: any) => article.sourceId === sourceFilter)
       : articles;
 
     // Filter by relevance score
-    const relevant = filtered.filter((article) => article.relevanceScore >= minScore);
+    const relevant = filtered.filter((article: any) => article.relevanceScore >= minScore);
 
     // Paginate
     const paginated = relevant.slice(offset, offset + limit);

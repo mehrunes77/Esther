@@ -227,6 +227,34 @@ class PlanetaryDataService {
       },
     };
   }
+
+  /**
+   * Get planet profile by name
+   */
+  async getPlanetProfile(name: string): Promise<PlanetaryData | null> {
+    const mockData = this.getMockNASAData();
+    return mockData[name.toLowerCase()] || null;
+  }
+
+  /**
+   * Get planets by category
+   */
+  async getPlanetsByCategory(category: string): Promise<PlanetaryData[]> {
+    const mockData = this.getMockNASAData();
+    const categoryMap: Record<string, string[]> = {
+      terrestrial: ['mercury', 'venus', 'mars'],
+      'gas-giant': ['jupiter', 'saturn'],
+      'ice-giant': ['uranus', 'neptune'],
+      dwarf: [],
+      moon: [],
+      asteroid: [],
+    };
+
+    const names = categoryMap[category.toLowerCase()] || [];
+    return names
+      .map((name) => mockData[name])
+      .filter((planet): planet is PlanetaryData => !!planet);
+  }
 }
 
 export default PlanetaryDataService;
