@@ -1,0 +1,37 @@
+{
+  "name": "esther",
+  "version": "0.1.0",
+  "description": "Esther - Real-time astrology & astronomy desktop app with NASA data",
+  "author": "Your Name",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "cd backend && npm run dev",
+    "dev:web": "cd frontend && npm run dev",
+    "build": "npm run build:api && npm run build:web",
+    "build:api": "cd backend && npm run build",
+    "build:web": "cd frontend && npm run build",
+    "test": "npm run test:api && npm run test:web",
+    "test:api": "cd backend && npm run test",
+    "test:web": "cd frontend && npm run test",
+    "test:watch": "concurrently \"npm run test:api:watch\" \"npm run test:web:watch\"",
+    "test:api:watch": "cd backend && npm run test:watch",
+    "test:web:watch": "cd frontend && npm run test:watch",
+    "lint": "echo 'Linting coming soon'",
+    "type-check": "tsc --noEmit",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "clean": "rm -rf node_modules backend/node_modules frontend/node_modules package-lock.json backend/package-lock.json frontend/package-lock.json"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
