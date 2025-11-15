@@ -19,7 +19,7 @@ export interface PlanetPosition {
  */
 export default class EphemerisService {
   private horizonsBase = 'https://ssd-api.jpl.nasa.gov/api/horizons.api';
-  private planets = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'];
+  private planets = ['sun', 'mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'];
   private cache: Map<string, { data: PlanetPosition; timestamp: number }> = new Map();
   private cacheTimeout = 5 * 60 * 1000; // 5 minutes
 
@@ -140,6 +140,15 @@ export default class EphemerisService {
    */
   private getMockPosition(bodyName: string): PlanetPosition {
     const mockData: Record<string, PlanetPosition> = {
+      sun: {
+        name: 'Sun',
+        rightAscension: 0.0,
+        declination: 0.0,
+        distance: 0.0, // Sun is our reference point
+        illumination: 100,
+        magnitude: -26.7, // Brightest object in our sky
+        timestamp: new Date(),
+      },
       mercury: {
         name: 'Mercury',
         rightAscension: 187.45,

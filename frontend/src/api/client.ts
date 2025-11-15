@@ -48,7 +48,7 @@ class EstherAPIClient {
 
     // Setup HTTP client for fallback
     this.httpClient = axios.create({
-      baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+      baseURL: 'http://localhost:5001',
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
@@ -66,10 +66,21 @@ class EstherAPIClient {
         return positions;
       }
 
+      console.log('Making HTTP request to /api/planets/positions');
       const response = await this.httpClient.get('/api/planets/positions');
-      return response.data.planets;
+      console.log('API Response:', response.data);
+      
+      if (!response.data || !response.data.planets) {
+        throw new Error('Invalid response format from backend');
+      }
+      
+      // Filter out null planets
+      return response.data.planets.filter((p: PlanetPosition | null) => p !== null);
     } catch (error) {
       console.error('Failed to fetch planet positions:', error);
+      if (error instanceof Error) {
+        throw new Error(`API Error: ${error.message}`);
+      }
       throw error;
     }
   }
@@ -113,12 +124,24 @@ class EstherAPIClient {
 
       const response = await this.httpClient.get(`/api/news?${params.toString()}`);
       return {
-        articles: response.data.articles,
-        pagination: response.data.pagination,
+        articles: response.data.articles || [],
+        pagination: response.data.pagination || { limit: 0, offset: 0, total: 0, pages: 0 },
       };
     } catch (error) {
-      console.error('Failed to fetch news:', error);
-      throw error;
+      if (axios.isAxiosError(error)) {
+        if (error.code === 'ECONNREFUSED') {
+          console.warn('Backend not available - news service offline');
+        } else {
+          console.warn('Failed to fetch news:', error.message);
+        }
+      } else {
+        console.error('Failed to fetch news:', error);
+      }
+      // Return empty result instead of throwing
+      return {
+        articles: [],
+        pagination: { limit: 0, offset: 0, total: 0, pages: 0 },
+      };
     }
   }
 

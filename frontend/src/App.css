@@ -1,0 +1,204 @@
+/* Esther App - Global Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #0a0a0a;
+  color: #4a9e8e;
+  overflow-x: hidden;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation Bar */
+.navbar {
+  background: #0a0a0a;
+  border-bottom: 1px solid #2d7a6e;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 5px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  font-size: 32px;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 10px #4a9e8e, 0 0 20px #4a9e8e;
+  }
+  50% {
+    text-shadow: 0 0 20px #5fb3a1, 0 0 40px #5fb3a1;
+  }
+}
+
+.title {
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 2px;
+  color: #4a9e8e;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: #3a6b61;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  transition: color 0.2s;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+}
+
+.nav-btn:hover {
+  color: #4a9e8e;
+}
+
+.nav-btn.active {
+  color: #5fb3a1;
+}
+
+/* Main Content */
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Coming Soon Placeholder */
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  padding: 40px;
+}
+
+.coming-soon h2 {
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 10px;
+  color: #4a9e8e;
+}
+
+.coming-soon p {
+  font-size: 10px;
+  color: #3a6b61;
+}
+
+/* Footer */
+.footer {
+  background: #0a0a0a;
+  border-top: 1px solid #2d7a6e;
+  padding: 10px;
+  text-align: center;
+  font-size: 10px;
+  color: #3a6b61;
+}
+
+.footer p {
+  margin: 3px 0;
+}
+
+.disclaimer {
+  font-size: 9px;
+  color: #3a6b61;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2d7a6e;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a9e8e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .nav-menu {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-btn {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main-content > * {
+  animation: slideIn 0.5s ease-out;
+}
+
+.content > * {
+  animation: slideIn 0.5s ease-out;
+}

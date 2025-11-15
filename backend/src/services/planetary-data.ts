@@ -133,6 +133,19 @@ class PlanetaryDataService {
    */
   private getMockNASAData(): Record<string, PlanetaryData> {
     return {
+      sun: {
+        name: 'Sun',
+        type: 'planet', // Star, but classified as 'planet' for consistency in our system
+        diameter: 1392700, // 1,392,700 km
+        mass: '1.989e30', // 1.989 × 10^30 kg
+        orbitalPeriod: 0, // Sun doesn't orbit (center of solar system)
+        avgDistance: 0, // Distance from itself is 0 AU
+        composition: ['Hydrogen', 'Helium', 'Oxygen', 'Carbon', 'Nitrogen', 'Neon', 'Iron'],
+        atmosphereComposition: ['Hydrogen (73%)', 'Helium (25%)', 'Other (2%)'],
+        temperature: { min: 5778, avg: 5778, max: 15000000 }, // Surface: 5778K, Core: 15 million K
+        sourceUrl: 'https://nssdc.gsfc.nasa.gov/planetary/fact_sheet/sunfact.html',
+        lastUpdated: new Date(),
+      },
       mercury: {
         name: 'Mercury',
         type: 'planet',

@@ -1,0 +1,36 @@
+.banner {
+  background: #0a0a0a;
+  border-bottom: 1px solid #2d7a6e;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 11px;
+  overflow: hidden;
+}
+
+.label {
+  color: #5fb3a1;
+  text-transform: lowercase;
+  flex-shrink: 0;
+}
+
+.headline {
+  color: #4a9e8e;
+  text-decoration: none;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s;
+}
+
+.headline:hover {
+  color: #5fb3a1;
+}
+
+.source {
+  color: #3a6b61;
+  flex-shrink: 0;
+  font-size: 9px;
+}

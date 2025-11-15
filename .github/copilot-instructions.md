@@ -3,7 +3,14 @@
 
 ## Overview
 
-**Esther** is an open-source desktop application (Electron + React + Node.js) that bridges astrology and astronomy. It provides real-time planetary monitoring, educational content from NASA/ESA/JPL, astronomy-only news feeds, and a retro-inspired UI. **No user accounts or forums**—purely educational and open-source.
+**Esther** is an open-source web application (React + Node.js Express) that bridges astrology and astronomy. It provides real-time planetary monitoring via NASA JPL Horizons API, educational content, astronomy-only news feeds, and a retro-inspired dark UI. **No user accounts or databases**—purely educational and stateless.
+
+## Critical Port Configuration
+
+**NEVER change these ports without updating all references:**
+- Backend API: **Port 5001** (configured in `/backend/.env.local` as `API_PORT=5001`)
+- Frontend Dev Server: **Port 3001** (configured in `/frontend/vite.config.ts`)
+- Frontend API Client: Hardcoded to `http://localhost:5001` in `/frontend/src/api/client.ts`
 
 ## Architecture & Key Files
 
@@ -85,29 +92,52 @@ esther/
 
 ## Development Workflow
 
-### Setup
+### Starting the Application
 ```bash
-npm install
-cp .env.example .env.local
-npm run dev         # Runs Electron + backend dev servers
+# Option 1: Use startup script (recommended)
+./start.sh
+
+# Option 2: Manual (requires 2 terminals)
+# Terminal 1 - Backend MUST start first
+cd backend && node dist/main.js
+
+# Terminal 2 - Frontend
+cd frontend && npm run dev
 ```
 
-### Build
-```bash
-npm run build       # Packages Electron app (dmg/exe/AppImage)
-```
+### Making Code Changes
 
-### Testing
-```bash
-npm run test        # Jest for backend & frontend
-npm run test:watch  # Watch mode
-```
+**Backend Changes:**
+1. Edit files in `backend/src/`
+2. Compile: `cd backend && npm run build`
+3. Restart: Kill backend process and run `node dist/main.js`
+4. **Important**: Backend uses CommonJS modules, not ES modules (tsconfig has `"module": "commonjs"`)
 
-### Adding a New Data Source
-1. Add RSS feed URL to `DEFAULT_SETTINGS.newsFiltering.sources` in `backend/src/config/settings.ts`
-2. Test keyword filtering in `AstronomyNewsService.isAstronomyContent()`
-3. Update `.env.example` if credentials needed
-4. Add unit test in `tests/news-filter.test.ts`
+**Frontend Changes:**
+- Edit files in `frontend/src/`
+- Vite hot-reloads automatically (no restart needed)
+- Changes appear instantly in browser
+
+### TypeScript Configuration
+
+**Backend (`backend/tsconfig.json`):**
+- Uses `"module": "commonjs"` (NOT "ES2020")
+- Uses `"type": "module"` is REMOVED from `package.json`
+- Imports use NO file extensions: `import logger from './logger'` (not `'./logger.js'`)
+
+**Frontend (`frontend/tsconfig.json`):**
+- Standard React + TypeScript setup
+- Uses Vite for bundling
+
+### Build Process
+```bash
+# Build everything
+npm run build
+
+# Build individually
+cd backend && npm run build   # Compiles TS to dist/
+cd frontend && npm run build  # Vite production build
+```
 
 ## Common Patterns
 

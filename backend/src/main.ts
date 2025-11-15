@@ -23,9 +23,9 @@ setupSecurityHeaders(app);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
-// CORS (allow Electron dev server)
+// CORS (allow frontend dev server)
 app.use((req: Request, res: Response, next: NextFunction) => {
-  const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:3000').split(',');
+  const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:3001').split(',');
   const origin = req.headers.origin;
 
   if (origin && allowedOrigins.includes(origin)) {
@@ -127,5 +127,3 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
-
-export default app;
