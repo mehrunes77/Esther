@@ -12,6 +12,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiClient } from '../api/client';
 import PlanetViewer3D from './PlanetViewer3D';
+import SolarSystemViewer from './SolarSystemViewer';
 import { calculateZodiacSign, calculateAspects } from '../utils/astrology';
 import styles from './PlanetDashboard.module.css';
 
@@ -46,6 +47,7 @@ export function PlanetDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
   const [aspects, setAspects] = useState<string[]>([]);
+  const [showSolarSystem, setShowSolarSystem] = useState(false);
 
   // Fetch planet positions
   const fetchPlanets = async () => {
@@ -140,6 +142,13 @@ export function PlanetDashboard() {
           <button onClick={fetchPlanets} className={styles.refreshBtn}>
             refresh
           </button>
+          <button 
+            onClick={() => setShowSolarSystem(true)} 
+            className={styles.refreshBtn}
+            style={{ marginLeft: '10px' }}
+          >
+            🌍 solar system
+          </button>
         </div>
       </div>
 
@@ -163,6 +172,26 @@ export function PlanetDashboard() {
                   : undefined
               }
               autoRotate={true}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Solar System Modal */}
+      {showSolarSystem && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent} style={{ minHeight: '700px' }}>
+            <button 
+              onClick={() => setShowSolarSystem(false)} 
+              className={styles.closeBtn}
+            >
+              ✕
+            </button>
+            <SolarSystemViewer
+              onPlanetSelect={(planetName) => {
+                setShowSolarSystem(false);
+                handlePlanetClick(planetName);
+              }}
             />
           </div>
         </div>

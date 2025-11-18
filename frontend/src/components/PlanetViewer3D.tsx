@@ -3,6 +3,8 @@
  * 
  * Features:
  * - Realistic planet rendering with NASA textures
+ * - Animated surfaces (UV scrolling for atmospheric movement)
+ * - Solar ejections and particle effects for the Sun
  * - Interactive controls (rotate, zoom, pan)
  * - Auto-rotation with toggle
  * - Planet switching without reload
@@ -209,13 +211,16 @@ export function PlanetViewer3D({
           console.log(`✅ GLB model loaded for ${planetName}`, gltf);
           const planetMesh = gltf.scene;
           
+          let ejectionSystem: SolarEjectionSystem | null = null;
+
           // Log all children in the scene
           console.log(`🔍 Scene has ${planetMesh.children.length} children`);
+          
           planetMesh.traverse((child) => {
             console.log(`  - ${child.type}: ${child.name || 'unnamed'}`, child);
             if (child instanceof THREE.Mesh) {
               console.log(`    Material:`, child.material);
-              // Make sure materials are visible
+              // Just ensure materials are visible - no shaders
               if (Array.isArray(child.material)) {
                 child.material.forEach(mat => {
                   mat.transparent = false;
@@ -229,6 +234,13 @@ export function PlanetViewer3D({
               }
             }
           });
+          
+          // Create solar ejection system for the Sun
+          if (planetName.toLowerCase() === 'sun') {
+            ejectionSystem = new SolarEjectionSystem();
+            scene.add(ejectionSystem.particles);
+            console.log('✅ Solar ejection system created');
+          }
           
           // Calculate bounding box to properly scale the model
           const box = new THREE.Box3().setFromObject(planetMesh);
@@ -252,6 +264,12 @@ export function PlanetViewer3D({
           
           scene.add(planetMesh);
           planetRef.current = planetMesh;
+          
+          // Store ejection system if this is the Sun
+          if (ejectionSystem) {
+            (planetMesh as any).ejectionSystem = ejectionSystem;
+          }
+          
           setLoading(false);
           
           console.log(`✅ ${planetName} model added to scene!`);
@@ -293,11 +311,25 @@ export function PlanetViewer3D({
     addStars(scene);
 
     // Animation loop
+    let startTime = Date.now();
     const animate = () => {
       animationIdRef.current = requestAnimationFrame(animate);
 
-      if (planetRef.current && isRotating) {
-        planetRef.current.rotation.y += 0.001;
+      const elapsed = (Date.now() - startTime) / 1000; // seconds
+
+      if (planetRef.current) {
+        if (isRotating) {
+          planetRef.current.rotation.y += 0.001;
+        }
+
+        // Update solar ejections for the Sun
+        if (planetName.toLowerCase() === 'sun') {
+          const ejectionSystem = (planetRef.current as any).ejectionSystem;
+          if (ejectionSystem) {
+            ejectionSystem.triggerEjection(planetRef.current.position, Date.now());
+            ejectionSystem.update(16); // ~60fps delta
+          }
+        }
       }
 
       controls.update();
@@ -540,6 +572,101 @@ function getPlanetColor(planetName: string): number {
     neptune: 0x4166f5,
   };
   return colors[planetName.toLowerCase()] || 0x888888;
+}
+
+// Particle system for solar ejections
+class SolarEjectionSystem {
+  particles: THREE.Points;
+  geometry: THREE.BufferGeometry;
+  material: THREE.PointsMaterial;
+  velocities: Float32Array;
+  ages: Float32Array;
+  lifespans: Float32Array;
+  maxParticles = 200;
+  particleIndex = 0;
+  lastEjectionTime = 0;
+  ejectionInterval = 500; // ms between ejections
+
+  constructor() {
+    this.geometry = new THREE.BufferGeometry();
+    
+    const positions = new Float32Array(this.maxParticles * 3);
+    this.velocities = new Float32Array(this.maxParticles * 3);
+    this.ages = new Float32Array(this.maxParticles);
+    this.lifespans = new Float32Array(this.maxParticles);
+
+    this.geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    this.material = new THREE.PointsMaterial({
+      color: 0xffaa00,
+      size: 0.1,
+      sizeAttenuation: true,
+      transparent: true,
+      opacity: 1,
+    });
+
+    this.particles = new THREE.Points(this.geometry, this.material);
+  }
+
+  emit(originPoint: THREE.Vector3, count = 5) {
+    for (let i = 0; i < count; i++) {
+      const idx = this.particleIndex * 3;
+      
+      // Random direction from sun surface
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.random() * Math.PI;
+      
+      // Position on sphere surface
+      const positions = this.geometry.attributes.position.array as Float32Array;
+      positions[idx] = originPoint.x + Math.sin(phi) * Math.cos(theta) * 2.2;
+      positions[idx + 1] = originPoint.y + Math.sin(phi) * Math.sin(theta) * 2.2;
+      positions[idx + 2] = originPoint.z + Math.cos(phi) * 2.2;
+
+      // Velocity away from sun
+      this.velocities[idx] = Math.sin(phi) * Math.cos(theta) * (0.02 + Math.random() * 0.03);
+      this.velocities[idx + 1] = Math.sin(phi) * Math.sin(theta) * (0.02 + Math.random() * 0.03);
+      this.velocities[idx + 2] = Math.cos(phi) * (0.02 + Math.random() * 0.03);
+
+      this.ages[this.particleIndex] = 0;
+      this.lifespans[this.particleIndex] = 1000 + Math.random() * 1000; // ms
+
+      this.particleIndex = (this.particleIndex + 1) % this.maxParticles;
+    }
+
+    this.geometry.attributes.position.needsUpdate = true;
+  }
+
+  update(deltaTime: number) {
+    const positions = this.geometry.attributes.position.array as Float32Array;
+    const opacities = new Float32Array(this.maxParticles);
+
+    for (let i = 0; i < this.maxParticles; i++) {
+      this.ages[i] += deltaTime;
+      
+      const idx = i * 3;
+      const lifeProgress = this.ages[i] / this.lifespans[i];
+
+      if (lifeProgress < 1) {
+        // Update position
+        positions[idx] += this.velocities[idx];
+        positions[idx + 1] += this.velocities[idx + 1];
+        positions[idx + 2] += this.velocities[idx + 2];
+
+        // Fade out
+        opacities[i] = 1 - lifeProgress;
+      }
+    }
+
+    this.geometry.attributes.position.needsUpdate = true;
+    this.material.opacity = 0.8;
+  }
+
+  triggerEjection(originPoint: THREE.Vector3, currentTime: number) {
+    if (currentTime - this.lastEjectionTime > this.ejectionInterval) {
+      this.emit(originPoint, 3 + Math.floor(Math.random() * 3));
+      this.lastEjectionTime = currentTime;
+    }
+  }
 }
 
 export default PlanetViewer3D;
