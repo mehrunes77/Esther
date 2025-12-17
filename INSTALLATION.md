@@ -126,26 +126,49 @@ Esther works **partially offline** after initial data load:
 
 ---
 
-### Option 2: Docker (Advanced)
+### Option 2: Docker (Easiest for GitHub/Cloud)
+
+**Best for**: Running on servers, GitHub, Heroku, Railway, or any system with Docker
 
 ```bash
-docker run -p 3001:3001 -p 5001:5001 mehrunes77/esther:latest
+# Clone repository
+git clone https://github.com/mehrunes77/Esther.git
+cd Esther
+
+# Run with Docker Compose (recommended)
+docker-compose up
+
+# Or build manually
+docker build -t esther .
+docker run -p 3001:3001 -p 5001:5001 esther
 ```
 
-Then open browser to `http://localhost:3001`
+Then open `http://localhost:3001` in browser.
 
 **Pros**:
-- ✅ Isolated environment
-- ✅ Easy deployment
-- ✅ Cross-platform
+- ✅ Works on any OS (Windows/Mac/Linux)
+- ✅ No Node.js installation needed
+- ✅ Exact same environment for everyone
+- ✅ Easy deployment to cloud servers
+- ✅ Fixes "works on my machine" issues
 
 **Cons**:
-- ❌ Requires Docker
-- ❌ Not a native app (runs in container)
+- ❌ Requires Docker installation
 
 ---
 
-### Option 3: Build from Source (Developers)
+### Option 3: Docker (Production Build)
+
+For smaller, optimized image:
+
+```bash
+docker build -f Dockerfile.prod -t esther:prod .
+docker run -p 3001:3001 -p 5001:5001 esther:prod
+```
+
+---
+
+### Option 4: Build from Source (Developers)
 
 See [Building from Source](#building-from-source) section below.
 
