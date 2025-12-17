@@ -35,6 +35,22 @@ Download for your system from [Releases](https://github.com/mehrunes77/Esther/re
 
 See `INSTALLATION.md` for detailed setup instructions.
 
+### Fork & Build
+
+Fork this repository, and GitHub Actions automatically builds executables for Windows, macOS, and Linux when you push version tags:
+
+```bash
+git tag -a v1.0.0 -m "Release v1.0.0"
+git push origin v1.0.0
+```
+
+GitHub Actions will automatically:
+- Build for all three platforms
+- Create executables in `dist/`
+- Upload to your releases page
+
+Your followers can then download pre-built versions directly.
+
 ### Build from Source
 
 ```bash
