@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Esther - Real-time astrology & astronomy app (Electron + React frontend)",
   "author": "mehrunes77",
-  "main": "dist/index.js",
+  "main": "public/main.ts",
   "homepage": "./",
   "private": true,
   "scripts": {

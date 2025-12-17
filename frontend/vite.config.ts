@@ -11,6 +11,7 @@ export default defineConfig({
   },
   build: {
     minify: 'terser',
+    outDir: 'build', // Electron looks for ../build/index.html
     terserOptions: {
       compress: {
         // Strip all console.* calls in production
