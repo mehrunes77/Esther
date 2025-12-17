@@ -12,6 +12,7 @@
     "build": "npm run build:api && npm run build:web",
     "build:api": "cd backend && npm run build",
     "build:web": "cd frontend && npm run build",
+    "build:electron": "cd frontend && npm run build:electron",
     "test": "npm run test:api && npm run test:web",
     "test:api": "cd backend && npm run test",
     "test:web": "cd frontend && npm run test",
