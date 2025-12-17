@@ -21,14 +21,8 @@ jobs:
           node-version: '20.11.0'
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install root dependencies (includes frontend and backend via workspaces)
         run: npm ci
-
-      - name: Install frontend dependencies
-        run: cd frontend && npm install
-
-      - name: Install backend dependencies
-        run: cd backend && npm ci
 
       - name: Build backend
         run: cd backend && npm run build
