@@ -1,6 +1,6 @@
 # Esther - Complete Security Audit & Release Summary
 
-**Application**: Esther (Real-time Astrology & Astronomy Viewer)  
+**Application**: Esther (Real-time Astronomy Data Viewer - NOT AI-powered)  
 **Version**: 1.0.0  
 **Release Date**: December 17, 2025  
 **Status**: ✅ **APPROVED FOR PUBLIC RELEASE**

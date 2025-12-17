@@ -1,7 +1,8 @@
 # Security Audit & Analysis Report - Esther
 
 **Date:** December 17, 2025  
-**App:** Esther - Real-time Astrology & Astronomy Viewer  
+**App:** Esther - Real-time Astronomy Data Viewer  
+**Note:** This is NOT an AI-powered application. It's a real-time data visualization tool using NASA JPL Horizons API.  
 **Status:** Ready for Public Release
 
 ---

@@ -1,6 +1,6 @@
 # Esther
 
-**Esther** is an open-source desktop application (Electron + React + Three.js) that bridges astrology and astronomy. It provides real-time planetary monitoring via NASA JPL Horizons, beautiful 3D solar system visualization, and astronomy-only news feeds.
+**Esther** is an open-source desktop application (Electron + React + Three.js) for real-time astronomy data visualization. It connects directly to NASA JPL Horizons API for live planetary positions and includes astronomy news filtering from trusted scientific sources. **This is NOT an AI-powered application** - it's a real-time data viewer and visualization tool.
 
 **Key Features**:
 - ✨ **Real-time 3D Solar System** — Beautiful Three.js visualization with accurate planetary positions

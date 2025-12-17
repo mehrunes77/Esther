@@ -1,8 +1,8 @@
 # Installation & Setup Guide
 
-**Esther** - Real-time Astrology & Astronomy Viewer
+**Esther** - Real-time Astronomy Data Viewer
 
-This guide covers installing Esther from source or pre-built binaries.
+This is a desktop application that visualizes real-time astronomical data from NASA's JPL Horizons API. It is NOT an AI-powered application.
 
 ## Table of Contents
 

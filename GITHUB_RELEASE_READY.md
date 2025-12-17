@@ -2,7 +2,10 @@
 
 **Status**: ✅ **PRODUCTION READY**  
 **Audit Date**: December 17, 2025  
-**Version**: 1.0.0
+**Version**: 1.0.0  
+**Type**: Real-time Astronomy Data Viewer (NOT AI-powered)
+
+**⚠️ IMPORTANT**: Esther is a real-time astronomy data visualization tool that connects to NASA's JPL Horizons API. It does NOT use artificial intelligence or machine learning.
 
 ---
 
