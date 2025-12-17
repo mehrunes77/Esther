@@ -1,167 +1,287 @@
 # Esther
 
-**Esther** is an open-source desktop application (Electron + React) that bridges astrology and astronomy. It provides real-time planetary monitoring, educational content from NASA/ESA/JPL, astronomy-only news feeds, and a retro-inspired UI.
+**Esther** is an open-source desktop application (Electron + React + Three.js) that bridges astrology and astronomy. It provides real-time planetary monitoring via NASA JPL Horizons, beautiful 3D solar system visualization, and astronomy-only news feeds.
+
+**Key Features**:
+- ✨ **Real-time 3D Solar System** — Beautiful Three.js visualization with accurate planetary positions
+- 🛰️ **Live NASA Data** — Direct integration with NASA JPL Horizons API
+- 📰 **Astronomy News** — Auto-filtered from NASA, ESA, and arXiv
+- ⚙️ **Configurable Updates** — Set refresh intervals (1–60 minutes)
+- 🔒 **Zero Tracking** — Fully privacy-first, no analytics or telemetry
+- 🖥️ **Desktop & Web** — Works as Electron app (EXE/DMG/AppImage) or web app
+
+## Privacy First
+
+✅ **This app collects ZERO personal data**
+
+- No user accounts
+- No cloud sync
+- No telemetry
+- No tracking
+- Everything runs locally
+- Open source (audit the code)
+
+See `PRIVACY.md` for details.
+
+## Installation
+
+### Quick Start (Pre-built)
+
+Download for your system from [Releases](https://github.com/mehrunes77/Esther/releases):
+
+- **Windows**: `Esther-x.x.x.exe` or `-portable.exe`
+- **macOS**: `Esther-x.x.x.dmg`
+- **Linux**: `Esther-x.x.x.AppImage`
+
+See `INSTALLATION.md` for detailed setup instructions.
+
+### Build from Source
+
+```bash
+# Clone repository
+git clone https://github.com/mehrunes77/Esther.git
+cd Esther
+
+# Install dependencies (includes all needed packages)
+npm install
+
+# Build for your OS
+npm run build:electron:win    # Windows
+npm run build:electron:mac    # macOS
+npm run build:electron:linux  # Linux
+
+# Output in dist/ folder
+```
+
+See `INSTALLATION.md` for full instructions.
 
 ## Features
 
-- **Real-time Planet Monitoring** — Live orbital data, positions, and ephemeris calculations
+- **Real-time Planet Monitoring** — Live orbital positions from NASA JPL Horizons
+- **3D Solar System** — Interactive Three.js visualization with proper lighting and shadows
+- **Professional Planet Models** — Blender GLB models for Jupiter, Saturn, Mercury, Uranus, Neptune
 - **Configurable Update Intervals** — Choose refresh rates in Settings (1–60 minutes)
-- **Educational Content** — Detailed planetary & asteroid profiles from NASA, ESA, and JPL databases
-- **Astronomy-only News** — Auto-filtered space discoveries from verified scientific sources
-- **Retro-inspired UI** — Clean, navigable interface with vintage aesthetic
+- **Educational Content** — Detailed planetary profiles from NASA, ESA, and JPL
+- **Astronomy-only News** — Auto-filtered feeds from NASA, ESA, and arXiv
+- **Retro-inspired UI** — Clean, beautiful interface
 
 ## Architecture
 
 ```
-esther/
-├── frontend/src/          # Electron + React UI
-│   ├── components/
-│   │   ├── PlanetDashboard.tsx      # Real-time planet positions
-│   │   └── SettingsPanel.tsx         # User configurable settings
-│   └── styles/            # Retro CSS theme
-├── backend/src/           # Node.js API server
-│   ├── services/
-│   │   ├── ephemeris.ts             # NASA JPL Horizons API
-│   │   ├── news-filter.ts           # Astronomy-only feed filtering
-│   │   ├── planetary-data.ts        # NASA/ESA/JPL data aggregation
-│   │   └── scheduler.ts             # Configurable refresh jobs
-│   └── config/
-│       └── settings.ts              # Settings schema & defaults
-├── tests/                 # Jest tests
-├── .env.example           # Environment variables
-├── docker-compose.yml     # Local dev (PostgreSQL, Redis optional)
-└── package.json           # Monorepo
+Esther (Desktop App)
+├── Frontend (React + Three.js + Electron)
+│   ├── PlanetDashboard.tsx          # Planet data display
+│   ├── SolarSystemViewer.tsx        # 3D visualization
+│   └── SettingsPanel.tsx            # Configuration UI
+├── Backend (Node.js + Express)
+│   ├── /api/planets/positions       # Real-time data
+│   ├── /api/news                    # Filtered news
+│   └── /api/settings                # User settings
+└── External APIs (Direct calls)
+    ├── NASA JPL Horizons            # Planet positions
+    ├── NASA Fact Sheets             # Planet data
+    ├── ESA Data Portal              # Space data
+    └── RSS Feeds (NASA, ESA, arXiv) # News
 ```
 
-## Data Sources & Integration
+## Data Sources
 
 ### Real-time Ephemeris
-- **NASA JPL Horizons API** — Precise planetary positions (no auth required)
-- User-configurable update: 1–60 min (default 15 min)
+- **NASA JPL Horizons API** — Precise planetary positions
+- No authentication required
+- Cached locally for 5 minutes
+- User-configurable update interval (default: 15 min)
 
-### Planetary & Asteroid Profiles
+### Planetary Data
 - **NASA Planetary Fact Sheets** — https://nssdc.gsfc.nasa.gov/planetary/fact_sheet/
-- **JPL Small-Body Database** — https://ssd-api.jpl.nasa.gov/sbdb/
-- **Minor Planet Center** — https://www.minorplanetcenter.net/
-- **ESA Solar System Resources** — https://sci.esa.int/web/solar-system/
+- **JPL Small-Body Database** — https://ssd-api.jpl.nasa.gov/sbdb/ (asteroids)
+- **ESA Resources** — https://sci.esa.int/web/solar-system/
 
-### Astronomy News (Auto-filtered)
-- **NASA News** — https://www.nasa.gov/news-and-events/feed/
-- **ESA News** — https://www.esa.int/rssfeed.php
-- **Space.com Astronomy** — https://www.space.com/xml/rss-feeds/astronomy.xml
-- **ArXiv Astronomy** — https://arxiv.org/list/astro-ph/recent
+### News Feeds
+- **NASA News** — https://www.nasa.gov/feed/
+- **ESA News** — https://www.esa.int/rssfeed.xml
+- **arXiv Astronomy** — https://arxiv.org/rss/astro-ph
 
-**Auto-filter keywords**: planet, asteroid, comet, spacecraft, mission, discovery, solar system, exoplanet, moon, NASA, ESA, JPL, astronomy
+**Auto-filter keywords**: planet, asteroid, comet, spacecraft, mission, discovery, solar system, exoplanet, NASA, ESA, JPL
 
 ## Quick Start
 
 ### Prerequisites
-- Node.js 18+
-- npm 9+
 
-### Local Development
+- **Node.js**: v20.11.0 or later (includes npm)
+- **Git**: For cloning the repository
+
+### Development Setup
+
 ```bash
-# Install dependencies
+# Clone and install
+git clone https://github.com/mehrunes77/Esther.git
+cd Esther
 npm install
 
-# Set up environment
+# Configure (optional - defaults work)
 cp .env.example .env.local
 
-# Start dev servers (Electron + backend)
+# Start development servers
 npm run dev
 
-# Or run individually:
-npm run dev:web    # Frontend at http://localhost:3000
-npm run dev:api    # Backend API at http://localhost:5000
+# In another terminal, start backend
+cd backend && npm run build && npm run dev
+
+# Frontend opens at http://localhost:3001
 ```
 
-### Build
+### Build Desktop App
+
 ```bash
-npm run build       # Packages Electron app
+# Build for your OS
+npm run build:electron:win     # Windows EXE
+npm run build:electron:mac     # macOS DMG
+npm run build:electron:linux   # Linux AppImage
+
+# Find built app in dist/ folder
 ```
 
-### Testing
-```bash
-npm run test        # Run all tests
-npm run test:watch  # Watch mode
-```
-
-## Development Patterns
-
-### 1. Real-time Data Refresh
-Settings control update intervals via `SettingsPanel.tsx`. The scheduler reschedules based on user input:
-
-```typescript
-// backend/src/config/settings.ts
-planetUpdateInterval: 60_000 - 3_600_000 ms  // 1 min - 60 min
-newsUpdateInterval: 300_000 - 3_600_000 ms   // 5 min - 60 min
-```
-
-### 2. News Filtering
-Automatically filters RSS feeds for astronomy-only content via relevance scoring:
-
-```typescript
-// backend/src/services/news-filter.ts
-- Title keywords: 15 points each
-- Description keywords: 5 points each
-- Exclusion keywords: blocks article
-- Result: relevance score (0-100)
-```
-
-### 3. Planetary Data Fallback
-Uses mock NASA data on startup, fetches real data asynchronously:
-
-```typescript
-// backend/src/services/planetary-data.ts
-getMockNASAData()        // Instant startup
-fetchNASAFactSheets()    // Async updates
-fetchJPLSmallBodyData()  // Asteroid data
-fetchHorizonsData()      // Real-time positions
-```
+See `INSTALLATION.md` for detailed instructions.
 
 ## Security
 
-- **No User Accounts** — Open-source, local-only application
-- **No Credentials in Code** — API keys in `.env` (git-ignored)
-- **Trusted Data Sources** — NASA, ESA, JPL only
-- **Electron Hardening**:
-  - `nodeIntegration: false`
-  - `sandbox: true`
-  - No `eval()` or dynamic code
+**Esther is security-first:**
 
-## Adding New Features
+- ✅ Input validation on all endpoints
+- ✅ SSRF protection (blocks private IPs)
+- ✅ XSS protection via DOMPurify
+- ✅ Security headers (Helmet.js)
+- ✅ Content Security Policy
+- ✅ Electron sandbox enabled
+- ✅ No sensitive data collection
+- ✅ All dependencies audited and current
 
-### New News Source
-1. Add to `DEFAULT_SETTINGS.newsFiltering.sources` in `backend/src/config/settings.ts`
-2. Test filtering in `backend/src/services/news-filter.ts`
-3. Add unit test in `tests/news-filter.test.ts`
+See `SECURITY.md` for full security audit and responsible disclosure process.
 
-### New Planetary Data
-1. Source from NASA, ESA, or JPL (public domain)
-2. Add to `getMockNASAData()` in `backend/src/services/planetary-data.ts`
-3. Include source URLs and timestamps
+## System Requirements
 
-See `CONTRIBUTING.md` for detailed guidelines.
+### Minimum
+- Windows 7+, macOS 10.13+, or Ubuntu 16.04+
+- 2 GB RAM
+- 500 MB disk space
+- Integrated graphics (OpenGL 2.0+)
+- Internet connection
+
+### Recommended
+- Windows 10+, macOS 11+, or Ubuntu 20.04+
+- 4 GB+ RAM
+- SSD
+- Modern CPU/GPU
+
+## Troubleshooting
+
+### Port Already in Use
+```bash
+# Use different port
+API_PORT=5002 npm run dev
+```
+
+### Can't Connect to Backend
+```bash
+# Check if backend is running
+curl http://localhost:5001/health
+
+# Check your .env.local configuration
+cat .env.local | grep API_PORT
+```
+
+### Slow 3D Rendering
+- Update GPU drivers
+- Lower graphics settings
+- Close other applications
+- Check CPU/GPU usage
+
+See `INSTALLATION.md` for more troubleshooting.
+
+## Building & Testing
+
+```bash
+# Install all dependencies
+npm install
+
+# Compile TypeScript
+npm run build
+
+# Run tests
+npm run test
+
+# Development with hot-reload
+npm run dev
+
+# Build for production
+npm run build:web
+
+# Build desktop apps
+npm run build:electron:all
+```
+
+## Project Structure
+
+```
+esther/
+├── frontend/
+│   ├── src/
+│   │   ├── components/       # React components
+│   │   ├── api/             # API client
+│   │   └── styles/          # CSS
+│   ├── package.json
+│   └── vite.config.ts       # Build config
+├── backend/
+│   ├── src/
+│   │   ├── services/        # API services
+│   │   ├── routes/          # API endpoints
+│   │   └── utils/           # Helpers
+│   ├── package.json
+│   └── tsconfig.json
+├── package.json             # Root (monorepo)
+├── SECURITY.md             # Security audit
+├── PRIVACY.md              # Privacy policy
+├── INSTALLATION.md         # Setup guide
+└── README.md               # This file
+```
 
 ## Contributing
 
-Contributions welcome! Focus areas:
-- Real-time data improvements
-- UI/UX enhancements (retro aesthetic)
-- News source expansion
-- Testing & documentation
-- Performance optimization
+Contributions welcome! Areas of focus:
 
-**Not accepted**: user accounts, social features, proprietary data, blockchain/crypto integrations.
+- 🎨 UI/UX improvements (retro aesthetic)
+- 🛰️ Additional data sources
+- 📱 Mobile support
+- 🧪 Additional tests
+- 📚 Documentation
+- 🐛 Bug fixes
+
+**Not accepted**: user accounts, tracking/analytics, proprietary data, cryptocurrency features
+
+See `CONTRIBUTING.md` for guidelines.
 
 ## License
 
-MIT. See `LICENSE` file.
+MIT - See `LICENSE` file
 
-## Questions?
+## Support
 
-Open an issue or check `CONTRIBUTING.md` for guidelines.
+- 📖 **Documentation**: See `INSTALLATION.md` and `SECURITY.md`
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/mehrunes77/Esther/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/mehrunes77/Esther/discussions)
+- 🔒 **Security Issues**: See `SECURITY.md` for responsible disclosure
+
+## Acknowledgments
+
+- **NASA JPL Horizons** for real-time ephemeris data
+- **NASA, ESA, arXiv** for public data and news
+- **Three.js** for 3D rendering
+- **React** and **Electron** for the framework
 
 ---
 
-**Let's make astrology scientific and accessible.** 🌙✨
+**Made with 🌙 by developers who believe astronomy should be accessible, scientific, and privacy-first.**
+
+Check out `PRIVACY.md` to see exactly what data we do (and don't) collect.
+

@@ -16,10 +16,8 @@
     "axios": "^1.13.2",
     "dompurify": "^3.3.0",
     "dotenv": "16.3.1",
-    "electron": "39.1.2",
     "express": "^4.21.2",
     "helmet": "7.1.0",
-    "jsdom": "22.1.0",
     "p-queue": "7.4.1",
     "rss-parser": "3.13.0",
     "winston": "3.11.0"

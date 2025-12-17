@@ -14,11 +14,6 @@ export default function App() {
 
   return (
     <div className="app">
-      {/* DEBUG: Verify React is rendering */}
-      <div style={{background: '#1a1a1a', padding: '5px', textAlign: 'center', fontSize: '11px', color: '#4a9e8e', borderBottom: '1px solid #2d7a6e'}}>
-        ✓ react is running | backend: localhost:5001 | frontend: localhost:3001
-      </div>
-      
       {/* News Banner */}
       <NewsBanner />
       
