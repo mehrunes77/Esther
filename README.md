@@ -81,24 +81,93 @@ See `INSTALLATION.md` for full instructions.
 - **Astronomy-only News** — Auto-filtered feeds from NASA, ESA, and arXiv
 - **Retro-inspired UI** — Clean, beautiful interface
 
-## Architecture
+## Project Structure
 
 ```
-Esther (Desktop App)
-├── Frontend (React + Three.js + Electron)
-│   ├── PlanetDashboard.tsx          # Planet data display
-│   ├── SolarSystemViewer.tsx        # 3D visualization
-│   └── SettingsPanel.tsx            # Configuration UI
-├── Backend (Node.js + Express)
-│   ├── /api/planets/positions       # Real-time data
-│   ├── /api/news                    # Filtered news
-│   └── /api/settings                # User settings
-└── External APIs (Direct calls)
-    ├── NASA JPL Horizons            # Planet positions
-    ├── NASA Fact Sheets             # Planet data
-    ├── ESA Data Portal              # Space data
-    └── RSS Feeds (NASA, ESA, arXiv) # News
+Esther/
+├── .config/                    # Environment & Git configuration
+│   ├── .env.example           # Example environment variables
+│   ├── .gitignore             # Git ignore rules
+│   ├── .gitattributes         # Git attributes
+│   ├── .npmrc                 # NPM configuration
+│   └── .nvmrc                 # Node version specification
+│
+├── config/                     # Build & dependency configuration
+│   ├── electron-builder.json  # Electron packaging config (Windows/macOS/Linux)
+│   ├── package-lock.json      # Locked dependency versions
+│   ├── root-package.json      # Root monorepo package config
+│   └── tsconfig.json          # TypeScript compiler settings
+│
+├── docs/                       # Comprehensive documentation
+│   ├── DEPLOYMENT.md          # Build, test, release & troubleshoot guide
+│   ├── GITHUB_ACTIONS.md      # CI/CD pipeline documentation
+│   ├── SECURITY.md            # Security audit & practices
+│   ├── PRIVACY.md             # Privacy policy & data practices
+│   ├── INSTALLATION.md        # User installation guide
+│   ├── CONTRIBUTING.md        # Development guidelines
+│   └── SECURITY_AUDIT.md      # Detailed security findings
+│
+├── scripts/                    # Utility & startup scripts
+│   ├── start.sh               # Start development servers
+│   └── stop.sh                # Stop running servers
+│
+├── frontend/                   # React + Electron UI application
+│   ├── src/
+│   │   ├── components/        # React components (Planet Dashboard, 3D Viewer, Settings)
+│   │   ├── api/               # API client for backend communication
+│   │   ├── styles/            # CSS & styling (retro theme)
+│   │   ├── types/             # TypeScript types & interfaces
+│   │   └── utils/             # Helper functions (astrology, validation)
+│   ├── public/                # Electron main process & preload script
+│   ├── build/                 # Vite production build output
+│   ├── dist/                  # Packaged Electron executables (.exe, .dmg)
+│   ├── vite.config.ts         # Vite bundler configuration
+│   └── package.json           # Frontend dependencies
+│
+├── backend/                    # Node.js Express API server
+│   ├── src/
+│   │   ├── main.ts            # Express app entry point
+│   │   ├── services/          # Business logic
+│   │   │   ├── ephemeris.ts  # NASA JPL Horizons API integration
+│   │   │   ├── news-filter.ts # RSS feed filtering logic
+│   │   │   ├── planetary-data.ts # Data aggregation
+│   │   │   └── scheduler.ts   # Configurable update scheduling
+│   │   ├── routes/            # API endpoints
+│   │   │   ├── planets.ts     # GET /api/planets/positions
+│   │   │   ├── news.ts        # GET /api/news (filtered)
+│   │   │   └── settings.ts    # POST /api/settings (user config)
+│   │   ├── middleware/        # Express middleware
+│   │   │   └── security.ts    # Helmet.js security headers, CORS, validation
+│   │   ├── config/            # Configuration schemas
+│   │   │   └── settings.ts    # User settings defaults & validation
+│   │   └── utils/             # Utility functions
+│   │       ├── rate-limiter.ts # Request rate limiting
+│   │       └── validation.ts   # Input validation helpers
+│   ├── dist/                  # Compiled JavaScript output
+│   ├── tsconfig.json          # TypeScript config (CommonJS)
+│   └── package.json           # Backend dependencies
+│
+├── .github/                    # GitHub-specific configuration
+│   ├── workflows/
+│   │   └── build.yml          # CI/CD pipeline (auto-build on version tags)
+│   └── copilot-instructions.md # AI coding guidelines
+│
+├── README.md                   # This file - project overview
+└── LICENSE                     # MIT License
+
 ```
+
+### Folder Purposes
+
+| Folder | Purpose |
+|--------|---------|
+| **.config** | Environment & git configuration files (hidden) |
+| **config** | Build configuration (electron-builder, tsconfig, package-lock) |
+| **docs** | Complete documentation (guides, security, privacy, deployment) |
+| **scripts** | Utility scripts for starting/stopping development environment |
+| **frontend** | React + TypeScript UI (Vite bundler, Electron packaging, 3D visualization) |
+| **backend** | Node.js Express API (NASA data fetching, news filtering, scheduling) |
+| **.github** | GitHub Actions CI/CD workflows & GitHub-specific config |
 
 ## Data Sources
 
