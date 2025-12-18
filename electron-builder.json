@@ -83,5 +83,12 @@
       "libappindicator1",
       "libxtst6"
     ]
+  },
+  "publish": {
+    "provider": "github",
+    "owner": "mehrunes77",
+    "repo": "Esther",
+    "releaseType": "release",
+    "overwrite": true
   }
 }
