@@ -13,7 +13,7 @@ const settings_1 = __importDefault(require("./routes/settings"));
 // Load environment variables
 dotenv_1.default.config({ path: process.env.NODE_ENV === 'production' ? '.env' : '.env.local' });
 const app = (0, express_1.default)();
-const PORT = process.env.API_PORT || 5000;
+const PORT = process.env.API_PORT || 5001;
 // ============================================================================
 // MIDDLEWARE SETUP
 // ============================================================================
