@@ -10,7 +10,7 @@ import settingsRouter from './routes/settings';
 dotenv.config({ path: process.env.NODE_ENV === 'production' ? '.env' : '.env.local' });
 
 const app = express();
-const PORT = process.env.API_PORT || 5000;
+const PORT = process.env.API_PORT || 5001;
 
 // ============================================================================
 // MIDDLEWARE SETUP
