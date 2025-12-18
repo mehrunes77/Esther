@@ -13,7 +13,7 @@ const settings_1 = __importDefault(require("./routes/settings"));
 // Load environment variables
 dotenv_1.default.config({ path: process.env.NODE_ENV === 'production' ? '.env' : '.env.local' });
 const app = (0, express_1.default)();
-const PORT = process.env.API_PORT || 5001;
+const PORT = parseInt(process.env.API_PORT || '5001', 10);
 // ============================================================================
 // MIDDLEWARE SETUP
 // ============================================================================
@@ -87,9 +87,10 @@ app.use((req, res) => {
 // ============================================================================
 // SERVER STARTUP
 // ============================================================================
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
     logger_1.default.info(`🚀 Esther Backend Server Started`, {
         port: PORT,
+        host: '0.0.0.0',
         environment: process.env.NODE_ENV || 'development',
         timestamp: new Date().toISOString(),
     });
