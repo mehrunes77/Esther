@@ -279,10 +279,11 @@ See `CONTRIBUTING.md` for guidelines.
 
 ## Documentation
 
-- **[GITHUB_ACTIONS.md](GITHUB_ACTIONS.md)** — CI/CD pipeline, automated builds & releases
-- **[INSTALLATION.md](INSTALLATION.md)** — Installation and setup instructions
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** — Build, test, release & troubleshoot guide
+- **[GITHUB_ACTIONS.md](GITHUB_ACTIONS.md)** — CI/CD pipeline detailed documentation
 - **[SECURITY.md](SECURITY.md)** — Security audit and responsible disclosure
 - **[PRIVACY.md](PRIVACY.md)** — Privacy policy and data practices
+- **[INSTALLATION.md](INSTALLATION.md)** — User installation guide
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** — Development guidelines
 - **[.github/copilot-instructions.md](.github/copilot-instructions.md)** — AI coding standards
 
