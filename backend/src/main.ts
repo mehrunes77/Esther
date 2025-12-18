@@ -10,7 +10,7 @@ import settingsRouter from './routes/settings';
 dotenv.config({ path: process.env.NODE_ENV === 'production' ? '.env' : '.env.local' });
 
 const app = express();
-const PORT = process.env.API_PORT || 5001;
+const PORT = parseInt(process.env.API_PORT || '5001', 10);
 
 // ============================================================================
 // MIDDLEWARE SETUP
@@ -103,9 +103,10 @@ app.use((req: Request, res: Response) => {
 // SERVER STARTUP
 // ============================================================================
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
   logger.info(`🚀 Esther Backend Server Started`, {
     port: PORT,
+    host: '0.0.0.0',
     environment: process.env.NODE_ENV || 'development',
     timestamp: new Date().toISOString(),
   });
