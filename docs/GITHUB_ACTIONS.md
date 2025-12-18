@@ -6,7 +6,7 @@ This document explains how Esther's automated CI/CD pipeline works on GitHub Act
 
 The GitHub Actions workflow automatically builds, tests, and releases Esther for Windows and macOS whenever you push a version tag.
 
-**Live Workflow**: [.github/workflows/build.yml](.github/workflows/build.yml)
+**Live Workflow**: [../.github/workflows/build.yml](../.github/workflows/build.yml)
 
 ---
 
@@ -453,8 +453,8 @@ cd frontend && npm run build:electron
 
 ## Related Documentation
 
-- [README.md](README.md) - Project overview
+- [README.md](../README.md) - Project overview
 - [INSTALLATION.md](INSTALLATION.md) - User installation guide
 - [SECURITY.md](SECURITY.md) - Security audit results
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Development guidelines
-- [.github/copilot-instructions.md](.github/copilot-instructions.md) - AI coding guidelines
+- [.github/copilot-instructions.md](../.github/copilot-instructions.md) - AI coding guidelines

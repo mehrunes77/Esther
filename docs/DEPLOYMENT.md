@@ -521,7 +521,7 @@ npm run clean           # Remove build artifacts
 - **[SECURITY.md](SECURITY.md)** - Security audit & practices
 - **[PRIVACY.md](PRIVACY.md)** - Privacy policy & practices
 - **[INSTALLATION.md](INSTALLATION.md)** - User installation guide
-- **[README.md](README.md)** - Project overview
+- **[../README.md](../README.md)** - Project overview
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - Development guidelines
 
 ---
