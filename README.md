@@ -92,10 +92,12 @@ Esther/
 │   └── .nvmrc                 # Node version specification
 │
 ├── config/                     # Build & dependency configuration
-│   ├── electron-builder.json  # Electron packaging config (Windows/macOS/Linux)
-│   ├── package-lock.json      # Locked dependency versions
-│   ├── root-package.json      # Root monorepo package config
-│   └── tsconfig.json          # TypeScript compiler settings
+│   └── [empty - core files moved to root]
+│
+├── package.json                # Root workspaces and dependencies
+├── package-lock.json           # Locked dependency versions
+├── tsconfig.json               # TypeScript compiler settings
+├── electron-builder.json       # Electron packaging config
 │
 ├── docs/                       # Comprehensive documentation
 │   ├── DEPLOYMENT.md          # Build, test, release & troubleshoot guide
@@ -161,7 +163,7 @@ Esther/
 | Folder | Purpose |
 |--------|---------|
 | **.config** | Environment & git configuration files (hidden) |
-| **config** | Build configuration (electron-builder, tsconfig, package-lock) |
+| **config** | Build configuration metadata (node_modules index) |
 | **docs** | Complete documentation (guides, security, privacy, deployment) |
 | **scripts** | Utility scripts for starting/stopping development environment |
 | **frontend** | React + TypeScript UI (Vite bundler, Electron packaging, 3D visualization) |
