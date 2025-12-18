@@ -55,9 +55,20 @@ fi
 echo ""
 echo "✨ Esther is running!"
 echo ""
+
+# Get the user's local IP address
+LOCAL_IP=$(ifconfig | grep -E "inet " | grep -v 127.0.0.1 | head -1 | awk '{print $2}')
+if [ -z "$LOCAL_IP" ]; then
+    LOCAL_IP="192.168.x.x (unable to detect)"
+fi
+
 echo "📍 URLs:"
 echo "   Frontend: http://localhost:3001"
 echo "   Backend:  http://localhost:5001"
+echo ""
+echo "🌐 Network Access (from other devices on your network):"
+echo "   Frontend: http://$LOCAL_IP:3001"
+echo "   Backend:  http://$LOCAL_IP:5001"
 echo ""
 echo "📋 Process IDs:"
 echo "   Backend:  $BACKEND_PID"
