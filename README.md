@@ -1,12 +1,12 @@
 # Esther
 
-**Esther** is an open-source, real-time astronomy data viewer built with Electron, React, and TypeScript. It fetches live planetary data from NASA JPL Horizons API and renders an interactive 3D solar system. Features configurable refresh intervals, professional 3D planet models, and astronomy news filtering from NASA, ESA, and arXiv. Zero tracking, completely local, no AI.
+**Esther** is an open-source, real-time astronomy data viewer built with Electron, React, and TypeScript. It fetches live planetary data from NASA JPL Horizons API and displays an interactive 3D solar system with custom planet models built in Blender. Features configurable refresh intervals, professional 3D visualizations, and educational astronomical data. Zero tracking, completely local, no AI.
 
 **Key Features**:
-- ✨ **Real-time 3D Solar System** — Beautiful Three.js visualization with accurate planetary positions
+- ✨ **Real-time 3D Solar System** — Beautiful Three.js visualization with custom Blender models
 - 🛰️ **Live NASA Data** — Direct integration with NASA JPL Horizons API
-- 📰 **Astronomy News** — Auto-filtered from NASA, ESA, and arXiv
 - ⚙️ **Configurable Updates** — Set refresh intervals (1–60 minutes)
+- 📚 **Educational Content** — Detailed planetary profiles and astronomical data
 - 🔒 **Zero Tracking** — Fully privacy-first, no analytics or telemetry
 - 🖥️ **Desktop & Web** — Works as Electron app (EXE/DMG/AppImage) or web app
 
@@ -74,11 +74,10 @@ See `INSTALLATION.md` for full instructions.
 ## Features
 
 - **Real-time Planet Monitoring** — Live orbital positions from NASA JPL Horizons
-- **3D Solar System** — Interactive Three.js visualization with proper lighting and shadows
-- **Professional Planet Models** — Blender GLB models for Jupiter, Saturn, Mercury, Uranus, Neptune
+- **3D Solar System** — Interactive Three.js visualization with custom Blender planet models
+- **Custom Planet Models** — Professional Blender GLB models for Jupiter, Saturn, Mercury, Uranus, Neptune
 - **Configurable Update Intervals** — Choose refresh rates in Settings (1–60 minutes)
 - **Educational Content** — Detailed planetary profiles from NASA, ESA, and JPL
-- **Astronomy-only News** — Auto-filtered feeds from NASA, ESA, and arXiv
 - **Retro-inspired UI** — Clean, beautiful interface
 
 ## Project Structure
