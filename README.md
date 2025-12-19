@@ -33,16 +33,6 @@ See `PRIVACY.md` for details.
 ~- **macOS**: `Esther-x.x.x.dmg`~
 ~- **Linux**: `Esther-x.x.x.AppImage`~
 
-### Fork & Build
-
-Fork this repository, and GitHub Actions automatically builds executables for Windows, macOS, and Linux when you push version tags:
-
-```bash
-git tag -a v1.0.0 -m "Release v1.0.0"
-git push origin v1.0.0
-```
-
-
 ### Build 
 
 ```bash
