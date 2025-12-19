@@ -8,7 +8,7 @@
 - ⚙️ **Configurable Updates** — Set refresh intervals (1–60 minutes)
 - 📚 **Educational Content** — Detailed planetary profiles and astronomical data
 - 🔒 **Zero Tracking** — Fully privacy-first, no analytics or telemetry
-- 🖥️ **Desktop & Web** — Works as Electron app (EXE/DMG/AppImage) or web app (COMING SOON)
+- 🖥️ **Desktop & Web** — Works as Electron app (EXE/DMG/AppImage) or web app (COMING SOON)🟡
 
 ## Privacy First
 
@@ -106,10 +106,10 @@ See `INSTALLATION.md` for full instructions.
 
 - ✅ Input validation on all endpoints
 - ✅ SSRF protection (blocks private IPs)
-- ✅ XSS protection via DOMPurify (COMING SOON)
-- ✅ Security headers (Helmet.js) (COMING SOON_
+- ✅ XSS protection via DOMPurify (COMING SOON)🟡
+- ✅ Security headers (Helmet.js) (COMING SOON)🟡
 - ✅ Content Security Policy
-- ✅ Electron sandbox enabled (COMING SOON)
+- ✅ Electron sandbox enabled (COMING SOON)🟡
 - ✅ No sensitive data collection
 - ✅ All dependencies audited and current 
 
